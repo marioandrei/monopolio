@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="author" content="Mario Pantoja Ignacio Sainz-Trapaga" />
+		<meta name="robots" content="all" />
+		
+		<link rel="stylesheet" media="screen" type="text/css" title="Style" href="css/style.css" />
+		<!--[if IE 7]>
+			<link rel="stylesheet" media="screen" type="text/css" title="Style" href="css/ie7.css" />
+		<![endif]-->
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/cycle.js"></script>
+		<script type="text/javascript" src="js/slideshow.js"></script>
+		<script type="text/javascript" src="js/cufon.js"></script>
+		<script type="text/javascript" src="js/myriadpro.font.js"></script>
+		<script type="text/javascript">
+			Cufon.replace('h1, h3, h5');
+		</script>
+		
+		<title>Monopoly - Login - Sistemas Informaticos 1</title>
+	</head>
+	<body>
+		<!-- STATUS BAR -->
+		<div id="status-bar">
+			<div id="status-bar-content">
+					<p>WELCOME, Guest</p>
+					<p>
+						<a href="#login" title="Login">Login</a>
+						<a href="#sitemap" title="Sitemap">Acerca Esta Pagina</a>
+					</p>
+			</div>
+		</div>
+		<!-- HEADER -->
+		<div id="header">
+			<div id="logo">
+				<h1><a href="#home" title="Home Page">Sistemas Informaticos 1</a></h1>
+				<h2>Practica 4</h2>
+			</div>
+		</div>
+		<!-- CONTENT -->
+		<div id="content-top-shadow"></div>
+		<div id="content">
+			<!-- PAGE WRAPPER -->
+			<div id="page-wrapper">
+			<h3> LOGIN </h3>
+			<p>Por favor ingrese sus credenciales de autenticacion para poder acceder:</p>
+			 <section>
+			 <form method="POST" action="login.php" enctype="application/x-www-form-urlencoded">
+			 <p>Username: <input type="text" name="username" id="username" size="25" required/></p>
+			 <p>Password: <input type="password" name="passwd" id="passwd" size="25" required/></p>
+			 <p>
+			 <input type="submit" name="submit" id="submit" value="Submit"/>
+			 <input type="reset" name="reset" id="reset" value="Reset"/>
+			 </p>
+			 </form>
+			 </section>
+				<?php
+				// Connecting, selecting database
+				$dbconn = pg_connect("host=localhost dbname=c_9 user=alumnodb password=$_SESSION["mypassword"]")
+				    or die('Could not connect: ' . pg_last_error());
+				
+				// Performing SQL query
+				$query = 'SELECT * FROM jugador';
+				$result = pg_query($query) or die('Query failed: ' . pg_last_error());
+				
+				// Printing results in HTML
+				echo "<table>\n";
+				while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+				    echo "\t<tr>\n";
+				    foreach ($line as $col_value) {
+				        echo "\t\t<td>$col_value</td>\n";
+				    }
+				    echo "\t</tr>\n";
+				}
+				echo "</table>\n";
+				
+				// Free resultset
+				pg_free_result($result);
+				
+				// Closing connection
+				pg_close($dbconn);
+				?>
+						 
+			</div>
+			<!-- BLOG MODULE -->
+			<div class="module" id="blog">
+				<h4 class="module-header-bar">Ultimos Ganadores</h4>
+				<div class="blog-entry">
+					<h5><a href="#blogentry1" title="Vivamus sed risus">Jugador 1</a></h5>
+					<p class="meta">Partida 10, 3000€ - 05 / 08 / 09</p>
+					<blockquote class="content">
+						<p>
+							Vivamus sed risus quis felis sagittis cursus. Duis blandit tristique turpis. Nulla feugiat vehicula metus.
+						</p>
+					</blockquote>
+				</div>
+				<div class="blog-entry">
+					<h5><a href="#blogentry1" title="Vivamus sed risus">Jugador 1</a></h5>
+					<p class="meta">Partida 10, 3000€ - 05 / 08 / 09</p>
+					<blockquote class="content">
+						<p>
+							Vivamus sed risus quis felis sagittis cursus. Duis blandit tristique turpis. Nulla feugiat vehicula metus.
+						</p>
+					</blockquote>
+				</div>
+				
+			</div>
+			<!-- TWITTER MODULE -->
+			<div class="module" id="release_notes">
+				<h4 class="module-header-bar">Desarrolladores</h4>
+				
+				<div class="note">
+					<img src="img/team/1.png" alt="Ignacio Sainz-Trapaga" />
+					<h5><a href="#" title="Ignacio Sainz-Trapaga">Ignacio Sainz-Trapaga</a></h5>
+					<blockquote>
+						<p>
+													Pellentesque est massa, posuere eu.
+						
+						""						</p>
+					</blockquote>
+				</div>
+				<div class="note">
+					<img src="img/team/2.png" alt="Mario Pantoja" />
+					<h5><a href="#" title="Mario Pantoja">Mario Pantoja</a></h5>
+					<blockquote>
+						<p>
+							Etiam felis ligula.
+						</p>
+					</blockquote>
+				</div>
+				
+			</div>
+		</div>
+		<div id="content-bottom-shadow"></div>
+		<div id="footer">
+			<div id="footer-image"></div>
+			<p id="footer-text">
+				Copyright &copy; 2011 Ignacio Sainz-Trapaga - Mario Pantoja<br />
+				All Rights Reserved
+			</p>
+		</div>
+	</body>
+</html>
